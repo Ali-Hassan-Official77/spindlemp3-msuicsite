@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Stylus } from "@/components/Art";
-
+export const runtime = 'edge';
 export default function NotFound() {
   return (
     <div className="mx-auto flex min-h-[68vh] max-w-xl flex-col items-center justify-center px-5 text-center">

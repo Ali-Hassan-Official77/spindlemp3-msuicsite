@@ -7,7 +7,7 @@ import Icon from "@/components/Icon";
 import { VinylHero, CrateTile } from "@/components/Art";
 import { getTrending } from "@/lib/audius";
 import { GENRES } from "@/lib/genres";
-
+export const runtime = 'edge';
 export const revalidate = 60;
 
 const principles = [

@@ -7,6 +7,7 @@ import PlayerBar from "@/components/PlayerBar";
 import PlayerProvider from "@/components/PlayerProvider";
 import SiteFooter from "@/components/SiteFooter";
 import { SITE } from "@/lib/site";
+export const runtime = 'edge';
 
 const display = Fraunces({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
 const body = DM_Sans({ subsets: ["latin"], variable: "--font-body", display: "swap" });
