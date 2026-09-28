@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body { background: #F3ECDD; color: #17130E; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+::selection { background: #E4472B; color: #F3ECDD; }
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 70; opacity: .16; background-image: url("/grain.svg"); mix-blend-mode: multiply; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+:focus-visible { outline: 2px solid #E4472B; outline-offset: 2px; }
+
+@layer components {
+  .kicker { @apply font-mono text-[11px] font-medium uppercase tracking-[.18em] text-vermilion; }
+  .h-display { @apply font-display font-semibold tracking-[-.03em] leading-[.98]; }
+  .rule { @apply border-t-2 border-ink; }
+  .btn { @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-5 py-3 font-mono text-[11px] font-medium uppercase tracking-[.16em] transition duration-200; }
+  .btn-ink { @apply btn bg-ink text-paper hover:bg-vermilion hover:border-vermilion; }
+  .btn-outline { @apply btn bg-transparent text-ink hover:bg-ink hover:text-paper; }
+  .btn-red { @apply btn border-vermilion bg-vermilion text-paper hover:bg-ink hover:border-ink; }
+  .sleeve { @apply overflow-hidden border-2 border-ink bg-paper-3 transition duration-200; box-shadow: 5px 5px 0 #17130E; }
+  .group:hover .sleeve { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #17130E; }
+  .chip { @apply whitespace-nowrap border-2 border-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[.14em] transition hover:bg-ink hover:text-paper; }
+  .chip.selected { @apply bg-ink text-paper; }
+  .field { @apply w-full border-2 border-ink bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-muted/70 focus:bg-white; }
+  .range { -webkit-appearance: none; appearance: none; height: 4px; width: 100%; cursor: pointer; background: linear-gradient(to right, #E4472B var(--value, 0%), rgba(243,236,221,.25) var(--value, 0%)); }
+  .range::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: #F3ECDD; border: 2px solid #E4472B; border-radius: 0; }
+  .range::-moz-range-thumb { width: 10px; height: 10px; background: #F3ECDD; border: 2px solid #E4472B; border-radius: 0; }
+  .vinyl-spin { transform-box: fill-box; transform-origin: center; animation: spin 16s linear infinite; }
+  .eq-dot { @apply inline-block h-3 w-[3px] origin-bottom bg-vermilion; animation: eq .9s ease-in-out infinite; }
+  .eq-dot.d1 { animation-delay: .15s; } .eq-dot.d2 { animation-delay: .3s; }
+}
+@keyframes eq { 0%,100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .vinyl-spin, .animate-marquee, .animate-rise, .eq-dot { animation: none !important; } html { scroll-behavior: auto; } }
