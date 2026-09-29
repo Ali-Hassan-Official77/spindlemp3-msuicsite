@@ -29,14 +29,15 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="border-b-2 border-ink">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:py-20">
+      <section className="relative overflow-hidden border-b-2 border-ink">
+        <div className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-vermilion/10 blur-3xl sm:h-96 sm:w-96" />
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.02fr_.98fr] lg:gap-8 lg:py-20">
           <div className="animate-rise">
             <p className="kicker">Vol. 01 — The independent record room</p>
             <h1 className="h-display mt-5 text-[clamp(48px,8.4vw,112px)]">
               Records worth <em className="font-normal text-vermilion">staying up</em> for.
             </h1>
-            <p className="mt-6 max-w-lg text-[17px] leading-8 text-ink/75">
+            <p className="mt-6 max-w-lg text-[15px] leading-7 text-ink/75 sm:text-[17px] sm:leading-8">
               A free listening room for music that never needed a label. Dig through the crates, drop the needle on something new, and keep the ones that stick.
             </p>
             <div className="mt-9 max-w-xl"><SearchBar /></div>
@@ -46,7 +47,7 @@ export default async function HomePage() {
               <li className="inline-flex items-center gap-2"><Icon name="check" size={13} />Private crate</li>
             </ul>
           </div>
-          <VinylHero className="mx-auto w-full max-w-[560px]" />
+          <VinylHero className="mx-auto w-full max-w-[500px] lg:max-w-[560px]" />
         </div>
       </section>
 

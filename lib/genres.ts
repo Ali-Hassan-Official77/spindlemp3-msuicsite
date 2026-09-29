@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 export const GENRES = [
   { name: "Electronic", query: "Electronic", color: "#2E6F6B" },
   { name: "Hip-Hop", query: "Hip-Hop/Rap", color: "#E4472B" },

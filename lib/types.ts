@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 export interface Track {
   id: string;
   title: string;

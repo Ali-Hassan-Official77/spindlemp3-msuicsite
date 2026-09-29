@@ -30,10 +30,10 @@ export default function TrackCard({ track, queue }: { track: Track; queue?: Trac
           <Icon name={active && isPlaying ? "pause" : "play"} size={17} filled strokeWidth={1.2} />
         </button>
       </div>
-      <div className="mt-4 flex items-start justify-between gap-2">
+      <div className="mt-3 flex items-start justify-between gap-2 sm:mt-4">
         <div className="min-w-0">
-          <Link href={`/track/${track.id}`} className="block truncate font-display text-[18px] font-medium leading-tight tracking-[-.01em] hover:text-vermilion">{track.title}</Link>
-          <p className="mt-1 truncate font-mono text-[10px] uppercase tracking-[.14em] text-muted">{track.artist}</p>
+          <Link href={`/track/${track.id}`} className="block truncate font-display text-[15px] sm:text-[18px] font-medium leading-tight tracking-[-.01em] hover:text-vermilion">{track.title}</Link>
+          <p className="mt-1 truncate font-mono text-[9px] sm:text-[10px] uppercase tracking-[.14em] text-muted">{track.artist}</p>
           <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-muted/70">{track.genre || "Independent"} · {formatDuration(track.duration)}</p>
         </div>
         <button type="button" onClick={() => toggleLike(track)} aria-label={liked ? `Remove ${track.title} from My Crate` : `Add ${track.title} to My Crate`} aria-pressed={liked} className={`mt-0.5 grid h-8 w-8 shrink-0 place-items-center transition ${liked ? "text-vermilion" : "text-ink/45 hover:text-ink"}`}>
@@ -59,7 +59,7 @@ export function ChartRow({ track, index, queue }: { track: Track; index: number;
       </button>
       <Link href={`/track/${track.id}`} className="min-w-0 flex-1">
         <p className={`truncate font-display text-[19px] font-medium leading-tight ${active ? "text-vermilion" : ""}`}>{track.title}</p>
-        <p className="mt-1 truncate font-mono text-[10px] uppercase tracking-[.14em] text-muted">{track.artist}</p>
+        <p className="mt-1 truncate font-mono text-[9px] sm:text-[10px] uppercase tracking-[.14em] text-muted">{track.artist}</p>
       </Link>
       <span className="hidden font-mono text-[10px] uppercase tracking-[.14em] text-muted md:block">{track.genre || "Independent"}</span>
       <button type="button" onClick={() => toggleLike(track)} aria-label={liked ? "Remove from My Crate" : "Add to My Crate"} aria-pressed={liked} className={`grid h-9 w-9 place-items-center ${liked ? "text-vermilion" : "text-ink/40 hover:text-ink"}`}>

@@ -1,4 +1,5 @@
 "use client";
+
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { usePlayer } from "./PlayerProvider";
@@ -11,36 +12,41 @@ export default function PlayerBar() {
   if (!track) return null;
   const progress = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
   const liked = isLiked(track.id);
+
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-vermilion bg-ink text-paper" role="region" aria-label="Player">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 py-3 sm:gap-5 sm:px-8">
-        <Link href={`/track/${track.id}`} className="relative h-12 w-12 shrink-0 overflow-hidden border border-paper/40 sm:h-14 sm:w-14">
-          <SafeImage src={track.artwork} alt="" fill sizes="56px" className="object-cover" />
-        </Link>
-        <div className="min-w-0 flex-1 sm:w-56 sm:flex-none">
-          <p className="truncate font-display text-[16px] font-medium leading-tight">{track.title}</p>
-          <p className="mt-1 truncate font-mono text-[10px] uppercase tracking-[.14em] text-paper/55">{track.artist}</p>
-        </div>
-        <div className="hidden flex-1 flex-col items-center gap-2 sm:flex">
-          <div className="flex items-center gap-3">
-            <button onClick={prev} aria-label="Previous track" className="grid h-9 w-9 place-items-center text-paper/70 transition hover:text-paper"><Icon name="prev" size={18} /></button>
-            <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className="grid h-11 w-11 place-items-center rounded-full bg-vermilion text-paper transition hover:scale-105"><Icon name={isPlaying ? "pause" : "play"} size={17} filled strokeWidth={1} /></button>
-            <button onClick={next} aria-label="Next track" className="grid h-9 w-9 place-items-center text-paper/70 transition hover:text-paper"><Icon name="next" size={18} /></button>
+    <div className="fixed inset-x-0 bottom-0 z-[60] border-t-2 border-vermilion bg-ink text-paper shadow-[0_-12px_40px_rgba(0,0,0,.18)]">
+      <div className="mx-auto max-w-7xl px-3 py-2.5 sm:px-6 sm:py-3">
+        <div className="flex items-center gap-2.5 sm:gap-4">
+          <Link href={`/track/${track.id}`} className="relative h-11 w-11 shrink-0 overflow-hidden border border-paper/30 sm:h-14 sm:w-14">
+            <SafeImage src={track.artwork} alt="" fill sizes="56px" className="object-cover"/>
+          </Link>
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-display text-[15px] font-medium sm:text-[17px]">{track.title}</p>
+            <p className="mt-0.5 truncate font-mono text-[9px] uppercase tracking-[.15em] text-paper/50">{track.artist}</p>
           </div>
-          <div className="flex w-full max-w-[560px] items-center gap-3 font-mono text-[10px] text-paper/60">
-            <span className="w-9 text-right">{formatDuration(currentTime)}</span>
-            <input className="range" style={{ "--value": `${progress}%` } as CSSProperties} type="range" min="0" max={duration || 0} step="0.1" value={Math.min(currentTime, duration || currentTime)} onChange={(e) => seek(Number(e.target.value))} aria-label="Seek" />
-            <span className="w-9">{formatDuration(duration)}</span>
+
+          <div className="hidden flex-1 flex-col items-center gap-1.5 md:flex">
+            <div className="flex items-center gap-3">
+              <button onClick={prev} aria-label="Previous track" className="grid h-8 w-8 place-items-center text-paper/60 hover:text-paper"><Icon name="prev" size={16}/></button>
+              <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className="grid h-10 w-10 place-items-center rounded-full bg-vermilion text-paper transition hover:scale-105"><Icon name={isPlaying ? "pause" : "play"} size={16} filled strokeWidth={1}/></button>
+              <button onClick={next} aria-label="Next track" className="grid h-8 w-8 place-items-center text-paper/60 hover:text-paper"><Icon name="next" size={16}/></button>
+            </div>
+            <div className="flex w-full max-w-[520px] items-center gap-2 font-mono text-[9px] text-paper/50">
+              <span className="w-8 text-right">{formatDuration(currentTime)}</span>
+              <input className="range" style={{"--value":`${progress}%`} as CSSProperties} type="range" min="0" max={duration || 0} step=".1" value={Math.min(currentTime,duration || currentTime)} onChange={e=>seek(Number(e.target.value))} aria-label="Seek"/>
+              <span className="w-8">{formatDuration(duration)}</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 sm:gap-2">
+            <button onClick={() => toggleLike(track)} aria-label={liked ? "Remove from My Crate" : "Add to My Crate"} aria-pressed={liked} className={`grid h-9 w-9 place-items-center ${liked ? "text-vermilion" : "text-paper/55 hover:text-paper"}`}><Icon name="heart" size={17} filled={liked}/></button>
+            <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className="grid h-10 w-10 place-items-center rounded-full bg-vermilion text-paper md:hidden"><Icon name={isPlaying ? "pause" : "play"} size={16} filled strokeWidth={1}/></button>
+            <span className="hidden text-paper/50 lg:block"><Icon name="volume" size={15}/></span>
+            <input aria-label="Volume" className="range hidden w-20 lg:block" style={{"--value":`${volume*100}%`} as CSSProperties} type="range" min="0" max="1" step=".01" value={volume} onChange={e=>setVolume(Number(e.target.value))}/>
           </div>
         </div>
-        <div className="flex items-center gap-2 sm:w-56 sm:justify-end">
-          <button onClick={() => toggleLike(track)} aria-label={liked ? "Remove from My Crate" : "Add to My Crate"} aria-pressed={liked} className={`grid h-9 w-9 place-items-center ${liked ? "text-vermilion" : "text-paper/60 hover:text-paper"}`}><Icon name="heart" size={17} filled={liked} /></button>
-          <button onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"} className="grid h-11 w-11 place-items-center rounded-full bg-vermilion text-paper sm:hidden"><Icon name={isPlaying ? "pause" : "play"} size={17} filled strokeWidth={1} /></button>
-          <span className="hidden text-paper/60 lg:block"><Icon name="volume" size={16} /></span>
-          <input aria-label="Volume" className="range hidden w-24 lg:block" style={{ "--value": `${volume * 100}%` } as CSSProperties} type="range" min="0" max="1" step="0.01" value={volume} onChange={(e) => setVolume(Number(e.target.value))} />
-        </div>
+        <div className="mt-2 h-0.5 bg-paper/10 md:hidden"><div className="h-full bg-vermilion" style={{width:`${progress}%`}}/></div>
       </div>
-      <div className="h-[3px] bg-paper/15 sm:hidden"><div className="h-full bg-vermilion" style={{ width: `${progress}%` }} /></div>
     </div>
   );
 }

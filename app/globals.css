@@ -2,35 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; }
-html { scroll-behavior: smooth; }
-body { background: #F3ECDD; color: #17130E; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-::selection { background: #E4472B; color: #F3ECDD; }
-body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 70; opacity: .16; background-image: url("/grain.svg"); mix-blend-mode: multiply; }
+:root {
+  color-scheme: light;
+  --paper: #f5f1e8;
+  --paper-2: #ebe5d7;
+  --paper-3: #ded6c5;
+  --ink: #14120f;
+  --red: #ff4d2e;
+  --gold: #e9b44c;
+  --muted: #756d61;
+}
+html { scroll-behavior: smooth; background: var(--paper); }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255,255,255,.7), transparent 28rem),
+    var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+::selection { background: var(--red); color: var(--paper); }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 70;
+  opacity: .12;
+  background-image: url("/grain.svg");
+  mix-blend-mode: multiply;
+}
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
-:focus-visible { outline: 2px solid #E4472B; outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+button, a, input { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
 
 @layer components {
-  .kicker { @apply font-mono text-[11px] font-medium uppercase tracking-[.18em] text-vermilion; }
-  .h-display { @apply font-display font-semibold tracking-[-.03em] leading-[.98]; }
+  .kicker { @apply font-mono text-[10px] font-medium uppercase tracking-[.2em] text-vermilion; }
+  .h-display { @apply font-display font-semibold tracking-[-.045em] leading-[.94]; }
   .rule { @apply border-t-2 border-ink; }
-  .btn { @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-5 py-3 font-mono text-[11px] font-medium uppercase tracking-[.16em] transition duration-200; }
-  .btn-ink { @apply btn bg-ink text-paper hover:bg-vermilion hover:border-vermilion; }
-  .btn-outline { @apply btn bg-transparent text-ink hover:bg-ink hover:text-paper; }
-  .btn-red { @apply btn border-vermilion bg-vermilion text-paper hover:bg-ink hover:border-ink; }
-  .sleeve { @apply overflow-hidden border-2 border-ink bg-paper-3 transition duration-200; box-shadow: 5px 5px 0 #17130E; }
-  .group:hover .sleeve { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #17130E; }
-  .chip { @apply whitespace-nowrap border-2 border-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[.14em] transition hover:bg-ink hover:text-paper; }
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 border-2 border-ink px-5 py-3 font-mono text-[10px] font-medium uppercase tracking-[.16em] transition duration-200;
+  }
+  .btn-ink { @apply btn bg-ink text-paper hover:-translate-y-0.5 hover:bg-vermilion hover:border-vermilion; }
+  .btn-outline { @apply btn bg-transparent text-ink hover:-translate-y-0.5 hover:bg-ink hover:text-paper; }
+  .btn-red { @apply btn border-vermilion bg-vermilion text-paper hover:-translate-y-0.5 hover:bg-ink hover:border-ink; }
+  .sleeve {
+    @apply relative overflow-hidden border-2 border-ink bg-paper-3 transition duration-300;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .group:hover .sleeve { transform: translate(-2px,-2px); box-shadow: 9px 9px 0 var(--ink); }
+  .chip { @apply whitespace-nowrap border-2 border-ink bg-transparent px-4 py-2.5 font-mono text-[10px] uppercase tracking-[.14em] transition hover:bg-ink hover:text-paper; }
   .chip.selected { @apply bg-ink text-paper; }
-  .field { @apply w-full border-2 border-ink bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-muted/70 focus:bg-white; }
-  .range { -webkit-appearance: none; appearance: none; height: 4px; width: 100%; cursor: pointer; background: linear-gradient(to right, #E4472B var(--value, 0%), rgba(243,236,221,.25) var(--value, 0%)); }
-  .range::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: #F3ECDD; border: 2px solid #E4472B; border-radius: 0; }
-  .range::-moz-range-thumb { width: 10px; height: 10px; background: #F3ECDD; border: 2px solid #E4472B; border-radius: 0; }
-  .vinyl-spin { transform-box: fill-box; transform-origin: center; animation: spin 16s linear infinite; }
+  .field { @apply w-full border-2 border-ink bg-paper px-4 py-3.5 text-[15px] outline-none transition placeholder:text-muted/70 focus:bg-white; }
+  .range {
+    -webkit-appearance: none; appearance: none; height: 4px; width: 100%; cursor: pointer;
+    background: linear-gradient(to right, var(--red) var(--value,0%), rgba(243,236,221,.25) var(--value,0%));
+  }
+  .range::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; background:#f5f1e8; border:2px solid var(--red); border-radius:50%; }
+  .range::-moz-range-thumb { width:12px; height:12px; background:#f5f1e8; border:2px solid var(--red); border-radius:50%; }
+  .vinyl-spin { transform-box: fill-box; transform-origin:center; animation: spin 16s linear infinite; }
   .eq-dot { @apply inline-block h-3 w-[3px] origin-bottom bg-vermilion; animation: eq .9s ease-in-out infinite; }
-  .eq-dot.d1 { animation-delay: .15s; } .eq-dot.d2 { animation-delay: .3s; }
+  .eq-dot.d1 { animation-delay:.15s; } .eq-dot.d2 { animation-delay:.3s; }
+  .glass-card {
+    @apply border-2 border-ink/15 bg-white/40 backdrop-blur-md;
+    box-shadow: 0 18px 50px rgba(20,18,15,.08);
+  }
 }
-@keyframes eq { 0%,100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
-@keyframes spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .vinyl-spin, .animate-marquee, .animate-rise, .eq-dot { animation: none !important; } html { scroll-behavior: auto; } }
+@keyframes eq { 0%,100% { transform:scaleY(.3); } 50% { transform:scaleY(1); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .vinyl-spin, .animate-marquee, .animate-rise, .eq-dot { animation:none !important; }
+  html { scroll-behavior:auto; }
+}
+@media (max-width: 639px) {
+  .sleeve { box-shadow: 4px 4px 0 var(--ink); }
+  .group:hover .sleeve { transform:none; box-shadow:4px 4px 0 var(--ink); }
+}

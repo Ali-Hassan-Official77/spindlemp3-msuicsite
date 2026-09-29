@@ -16,7 +16,7 @@ export default function TrackRail({ title, kicker, tracks, href }: { title: stri
       </div>
       <div className="no-scrollbar flex snap-x gap-5 overflow-x-auto px-5 pb-6 pr-8 sm:px-8">
         {tracks.map((track) => (
-          <div key={track.id} className="w-[170px] shrink-0 snap-start sm:w-[200px]"><TrackCard track={track} queue={tracks} /></div>
+          <div key={track.id} className="w-[155px] shrink-0 snap-start sm:w-[200px]"><TrackCard track={track} queue={tracks} /></div>
         ))}
       </div>
     </section>

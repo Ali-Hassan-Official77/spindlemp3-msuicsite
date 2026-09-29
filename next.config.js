@@ -1,13 +1,7 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "**.audius.co" },
-      { protocol: "https", hostname: "**.audius.network" },
-      { protocol: "https", hostname: "**.audius.exchange" },
-      { protocol: "https", hostname: "**" }
-    ]
-  }
+  reactStrictMode: true,
+  poweredByHeader: false,
 };
 
 module.exports = nextConfig;

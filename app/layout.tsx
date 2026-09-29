@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   title: { default: `${SITE.name} — ${SITE.tagline}`, template: `%s — ${SITE.name}` },
   description: SITE.description,
   openGraph: { title: `${SITE.name} — ${SITE.tagline}`, description: SITE.description, siteName: SITE.name, type: "website" },
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg", apple: "/icon.svg" },
 };
-export const viewport: Viewport = { themeColor: "#F3ECDD" };
+export const viewport: Viewport = { themeColor: "#14120F", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body className="font-body">
+      <body className="font-body antialiased">
         <PlayerProvider>
           <NavBar />
           <main className="pb-28">{children}</main>
