@@ -32,6 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <SiteFooter />
           <PlayerBar />
         </PlayerProvider>
+        <script src="https://cdn.zanderio.ai/widget/loader.js" data-id="wdg_2L78qeBNNOmKAt73DWMhRN2x" defer></script>
       </body>
     </html>
   );
